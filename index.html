@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,10 @@
 
         .crt-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             background-size: 100% 2px, 3px 100%;
             pointer-events: none;
@@ -36,23 +40,49 @@
 
         .heat-zone-marker {
             position: absolute;
-            top: 0; bottom: 0;
+            top: 0;
+            bottom: 0;
             width: 1px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             z-index: 10;
         }
 
-        .heat-bar-fill { height: 100%; transition: width 0.05s linear; position: relative; z-index: 5; }
+        .heat-bar-fill {
+            height: 100%;
+            transition: width 0.05s linear;
+            position: relative;
+            z-index: 5;
+        }
 
-        .zone-tier-1 { background: #22c55e; }
-        .zone-tier-2 { background: #84cc16; }
-        .zone-tier-3 { background: #eab308; }
-        .zone-tier-4 { background: #ef4444; animation: redline-flicker 0.1s infinite; }
+        .zone-tier-1 {
+            background: #22c55e;
+        }
+
+        .zone-tier-2 {
+            background: #84cc16;
+        }
+
+        .zone-tier-3 {
+            background: #eab308;
+        }
+
+        .zone-tier-4 {
+            background: #ef4444;
+            animation: redline-flicker 0.1s infinite;
+        }
 
         @keyframes redline-flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
         .building-card {
@@ -60,30 +90,91 @@
             border: 1px solid #374151;
             transition: all 0.2s;
         }
-        .building-card:hover:not(.disabled-milestone) { border-color: #10b981; background: rgba(31, 41, 55, 0.8); }
-        .disabled-milestone { opacity: 0.4; cursor: not-allowed; grayscale: 100%; }
-        .not-affordable { opacity: 0.5; }
 
-        .scram-active { border-color: #ef4444 !important; animation: border-flicker 0.2s infinite; }
-        @keyframes border-flicker {
-            0% { border-color: #ef4444; box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.2); }
-            100% { border-color: #450a0a; box-shadow: inset 0 0 20px rgba(239, 68, 68, 0.4); }
+        .building-card:hover:not(.disabled-milestone) {
+            border-color: #10b981;
+            background: rgba(31, 41, 55, 0.8);
         }
 
-        .city-grid-item { width: 10px; height: 10px; border-radius: 1px; transition: all 0.4s ease; }
-        .city-grid-dim { opacity: 0.1 !important; box-shadow: none !important; }
-        .brownout-flicker { animation: flicker 0.5s infinite; }
+        .disabled-milestone {
+            opacity: 0.4;
+            cursor: not-allowed;
+            grayscale: 100%;
+        }
 
-        .shake-light { animation: shake 0.5s infinite; }
-        .shake-heavy { animation: shake 0.2s infinite; }
+        .not-affordable {
+            opacity: 0.5;
+        }
+
+        .scram-active {
+            border-color: #ef4444 !important;
+            animation: border-flicker 0.2s infinite;
+        }
+
+        @keyframes border-flicker {
+            0% {
+                border-color: #ef4444;
+                box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.2);
+            }
+
+            100% {
+                border-color: #450a0a;
+                box-shadow: inset 0 0 20px rgba(239, 68, 68, 0.4);
+            }
+        }
+
+        .city-grid-item {
+            width: 10px;
+            height: 10px;
+            border-radius: 1px;
+            transition: all 0.4s ease;
+        }
+
+        .city-grid-dim {
+            opacity: 0.1 !important;
+            box-shadow: none !important;
+        }
+
+        .brownout-flicker {
+            animation: flicker 0.5s infinite;
+        }
+
+        .shake-light {
+            animation: shake 0.5s infinite;
+        }
+
+        .shake-heavy {
+            animation: shake 0.2s infinite;
+        }
+
         @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            10% { transform: translate(-1px, -2px) rotate(-1deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-            30% { transform: translate(3px, 2px) rotate(0deg); }
-            40% { transform: translate(1px, -1px) rotate(1deg); }
-            50% { transform: translate(-1px, 2px) rotate(-1deg); }
-            100% { transform: translate(1px, 1px) rotate(0deg); }
+            0% {
+                transform: translate(1px, 1px) rotate(0deg);
+            }
+
+            10% {
+                transform: translate(-1px, -2px) rotate(-1deg);
+            }
+
+            20% {
+                transform: translate(-3px, 0px) rotate(1deg);
+            }
+
+            30% {
+                transform: translate(3px, 2px) rotate(0deg);
+            }
+
+            40% {
+                transform: translate(1px, -1px) rotate(1deg);
+            }
+
+            50% {
+                transform: translate(-1px, 2px) rotate(-1deg);
+            }
+
+            100% {
+                transform: translate(1px, 1px) rotate(0deg);
+            }
         }
 
         select.manager-select {
@@ -105,6 +196,7 @@
             user-select: none;
             touch-action: none;
         }
+
         .master-ovr-active {
             background-color: #7f1d1d !important;
             border-color: #ef4444 !important;
@@ -123,7 +215,11 @@
             flex-shrink: 0;
         }
 
-        .tooltip { position: relative; display: inline-block; }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
         .tooltip .tooltiptext {
             visibility: hidden;
             width: 220px;
@@ -146,9 +242,15 @@
             box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.7);
             text-transform: none;
         }
-        .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
 
-        .reactor-card-fixed { height: 250px; }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .reactor-card-fixed {
+            height: 250px;
+        }
 
         .upgrade-tray-item {
             background: rgba(22, 28, 41, 0.8);
@@ -164,27 +266,32 @@
             position: relative;
             overflow: hidden;
         }
+
         .upgrade-tray-item.affordable {
             border-color: #34d399;
             background: rgba(16, 185, 129, 0.1);
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
         }
+
         .upgrade-tray-item.affordable:hover {
             background: rgba(16, 185, 129, 0.2);
             border-color: #10b981;
             transform: translateY(-2px);
         }
+
         .upgrade-tray-item.locked {
             opacity: 0.5;
             cursor: not-allowed;
             border-color: #374151;
         }
+
         .upgrade-tray-item.installed {
             border-color: #3b82f6;
             background: rgba(30, 58, 138, 0.3);
             cursor: default;
             opacity: 0.9;
         }
+
         .installed-badge {
             position: absolute;
             top: 4px;
@@ -198,9 +305,24 @@
             text-transform: uppercase;
             border: 1px solid rgba(96, 165, 250, 0.3);
         }
-        .upgrade-cost-text { font-size: 12px; font-weight: 700; margin-top: 6px; }
-        .upgrade-title-text { font-size: 12px; font-weight: 800; letter-spacing: -0.01em; }
-        .upgrade-desc-text { font-size: 10px; line-height: 1.3; margin-top: 4px; }
+
+        .upgrade-cost-text {
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        .upgrade-title-text {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+        }
+
+        .upgrade-desc-text {
+            font-size: 10px;
+            line-height: 1.3;
+            margin-top: 4px;
+        }
 
         #debug-panel {
             background: rgba(17, 24, 39, 0.98);
@@ -214,7 +336,64 @@
             padding: 1rem;
         }
     </style>
+    <style>
+        /* MODAL STYLES */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            background: #111827;
+            border: 1px solid #374151;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        textarea.save-string {
+            width: 100%;
+            height: 100px;
+            background: #000;
+            color: #10b981;
+            font-family: monospace;
+            font-size: 10px;
+            padding: 0.5rem;
+            border: 1px solid #374151;
+            resize: none;
+            margin: 1rem 0;
+        }
+    </style>
 </head>
+
 <body class="p-4 md:p-8 pb-16">
     <div class="crt-overlay"></div>
 
@@ -227,18 +406,24 @@
             </div>
             <div class="text-center">
                 <p class="text-[9px] uppercase text-gray-500 tracking-widest">Net Revenue</p>
-                <h2 class="text-2xl font-bold text-blue-400">$<span id="income-display">0</span><span class="text-sm">/s</span></h2>
-                <div id="efficiency-tag" class="text-[8px] font-bold text-emerald-500 bg-emerald-950/30 px-2 py-0.5 rounded-full inline-block mt-1 uppercase tracking-widest">Efficiency: 100%</div>
+                <h2 class="text-2xl font-bold text-blue-400">$<span id="income-display">0</span><span
+                        class="text-sm">/s</span></h2>
+                <div id="efficiency-tag"
+                    class="text-[8px] font-bold text-emerald-500 bg-emerald-950/30 px-2 py-0.5 rounded-full inline-block mt-1 uppercase tracking-widest">
+                    Efficiency: 100%</div>
             </div>
             <div class="text-center">
                 <p class="text-[9px] uppercase text-gray-500 tracking-widest">Export Market</p>
-                <h2 class="text-2xl font-bold text-orange-400">$<span id="export-display">0</span><span class="text-sm">/s</span></h2>
+                <h2 class="text-2xl font-bold text-orange-400">$<span id="export-display">0</span><span
+                        class="text-sm">/s</span></h2>
                 <div class="text-[8px] text-gray-500 uppercase tracking-tighter">Selling Surplus MW</div>
             </div>
             <div class="text-center md:text-right">
                 <p class="text-[9px] uppercase text-gray-500 tracking-widest">Global Grid Load</p>
-                <h2 class="text-2xl font-bold"><span id="power-used">0</span> / <span id="power-total">0</span> <span class="text-sm text-gray-500">MW</span></h2>
-                <div id="stability-indicator" class="text-[10px] uppercase text-emerald-500 font-bold tracking-widest">System Stable</div>
+                <h2 class="text-2xl font-bold"><span id="power-used">0</span> / <span id="power-total">0</span> <span
+                        class="text-sm text-gray-500">MW</span></h2>
+                <div id="stability-indicator" class="text-[10px] uppercase text-emerald-500 font-bold tracking-widest">
+                    System Stable</div>
             </div>
         </header>
 
@@ -246,13 +431,18 @@
 
             <!-- LEFT COLUMN -->
             <div class="lg:col-span-4 space-y-6">
-                <h3 class="text-lg font-bold border-b border-gray-700 pb-2 flex items-center uppercase tracking-tighter">
+                <h3
+                    class="text-lg font-bold border-b border-gray-700 pb-2 flex items-center uppercase tracking-tighter">
                     <span class="mr-2">🏙️</span> City Expansion
                 </h3>
 
                 <div id="build-list" class="space-y-3">
-                    <div id="btn-house" onclick="buyBuilding('house')" class="building-card p-3 rounded-md cursor-pointer flex items-center gap-4 transition-all">
-                        <div class="icon-container text-emerald-500"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div>
+                    <div id="btn-house" onclick="buyBuilding('house')"
+                        class="building-card p-3 rounded-md cursor-pointer flex items-center gap-4 transition-all">
+                        <div class="icon-container text-emerald-500"><svg class="w-6 h-6" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            </svg></div>
                         <div class="flex-grow">
                             <div class="flex justify-between items-start">
                                 <h4 class="font-bold text-emerald-400 text-[11px] uppercase">Housing</h4>
@@ -262,39 +452,60 @@
                         </div>
                     </div>
 
-                    <div id="btn-factory" onclick="buyBuilding('factory')" class="building-card p-3 rounded-md cursor-pointer disabled-milestone flex items-center gap-4 transition-all">
-                        <div class="icon-container text-blue-500"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20V4l7 5V4l7 5V4l6 4v12H2Z"></path></svg></div>
+                    <div id="btn-factory" onclick="buyBuilding('factory')"
+                        class="building-card p-3 rounded-md cursor-pointer disabled-milestone flex items-center gap-4 transition-all">
+                        <div class="icon-container text-blue-500"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M2 20V4l7 5V4l7 5V4l6 4v12H2Z"></path>
+                            </svg></div>
                         <div class="flex-grow">
                             <div class="flex justify-between items-start">
-                                <h4 class="font-bold text-blue-400 text-[11px] uppercase tracking-tighter">Industrial</h4>
+                                <h4 class="font-bold text-blue-400 text-[11px] uppercase tracking-tighter">Industrial
+                                </h4>
                                 <span class="text-[11px] font-bold">$<span id="cost-factory">25k</span></span>
                             </div>
-                            <p class="text-[9px] text-gray-500" id="factory-desc">25 MW | $150/s • <span id="count-factory">0</span> Units</p>
+                            <p class="text-[9px] text-gray-500" id="factory-desc">25 MW | $150/s • <span
+                                    id="count-factory">0</span> Units</p>
                         </div>
                     </div>
 
-                    <div id="btn-datacenter" onclick="buyBuilding('datacenter')" class="building-card p-3 rounded-md cursor-pointer disabled-milestone flex items-center gap-4 transition-all">
-                        <div class="icon-container text-purple-500"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M6 6h12M6 12h12M6 18h12"/></svg></div>
+                    <div id="btn-datacenter" onclick="buyBuilding('datacenter')"
+                        class="building-card p-3 rounded-md cursor-pointer disabled-milestone flex items-center gap-4 transition-all">
+                        <div class="icon-container text-purple-500"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="2" />
+                                <path d="M6 6h12M6 12h12M6 18h12" />
+                            </svg></div>
                         <div class="flex-grow">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <h4 id="dc-title-label" class="font-bold text-purple-400 text-[11px] uppercase tracking-tighter">Data Center</h4>
-                                    <p class="text-[10px] text-gray-400"><span id="dc-demand-label">200</span> MW | $<span id="dc-revenue-label">2.5k</span>/s</p>
+                                    <h4 id="dc-title-label"
+                                        class="font-bold text-purple-400 text-[11px] uppercase tracking-tighter">Data
+                                        Center</h4>
+                                    <p class="text-[10px] text-gray-400"><span id="dc-demand-label">200</span> MW |
+                                        $<span id="dc-revenue-label">2.5k</span>/s</p>
                                 </div>
                                 <span class="text-[11px] font-bold">$<span id="cost-datacenter">1.5M</span></span>
                             </div>
-                            <p class="text-[9px] text-gray-500" id="datacenter-desc"><span id="count-datacenter">0</span> Units</p>
+                            <p class="text-[9px] text-gray-500" id="datacenter-desc"><span
+                                    id="count-datacenter">0</span> Units</p>
                         </div>
                     </div>
 
-                    <div id="btn-skyscraper" onclick="buyBuilding('skyscraper')" class="building-card p-3 rounded-md cursor-pointer disabled-milestone flex items-center gap-4 transition-all">
-                        <div class="icon-container text-cyan-400"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V3l14 0v18M9 7h1M9 11h1M9 15h1M14 7h1M14 11h1M14 15h1"/></svg></div>
+                    <div id="btn-skyscraper" onclick="buyBuilding('skyscraper')"
+                        class="building-card p-3 rounded-md cursor-pointer disabled-milestone flex items-center gap-4 transition-all">
+                        <div class="icon-container text-cyan-400"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M3 21h18M5 21V3l14 0v18M9 7h1M9 11h1M9 15h1M14 7h1M14 11h1M14 15h1" />
+                            </svg></div>
                         <div class="flex-grow">
                             <div class="flex justify-between items-start">
-                                <h4 class="font-bold text-cyan-400 text-[11px] uppercase tracking-tighter">Commercial Hub</h4>
+                                <h4 class="font-bold text-cyan-400 text-[11px] uppercase tracking-tighter">Commercial
+                                    Hub</h4>
                                 <span class="text-[11px] font-bold">$<span id="cost-skyscraper">50M</span></span>
                             </div>
-                            <p class="text-[9px] text-gray-500" id="skyscraper-desc">1k MW | $25k/s • <span id="count-skyscraper">0</span> Units</p>
+                            <p class="text-[9px] text-gray-500" id="skyscraper-desc">1k MW | $25k/s • <span
+                                    id="count-skyscraper">0</span> Units</p>
                         </div>
                     </div>
                 </div>
@@ -310,7 +521,9 @@
                 <div class="bg-gray-900/50 p-4 border border-gray-800 rounded-md">
                     <div class="flex justify-between items-center mb-2">
                         <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest">District Monitor</h4>
-                        <button onclick="buyLand()" id="btn-buy-land" class="text-[9px] bg-blue-900/20 border border-blue-800 px-2 py-0.5 rounded text-blue-400 hover:bg-blue-800/40 transition-all font-bold">EXPAND (+100 Slots) $<span id="land-cost">10k</span></button>
+                        <button onclick="buyLand()" id="btn-buy-land"
+                            class="text-[9px] bg-blue-900/20 border border-blue-800 px-2 py-0.5 rounded text-blue-400 hover:bg-blue-800/40 transition-all font-bold">EXPAND
+                            (+100 Slots) $<span id="land-cost">10k</span></button>
                     </div>
                     <div id="city-visual-grid" class="flex flex-wrap gap-1 max-h-[160px] overflow-y-auto pr-1"></div>
                 </div>
@@ -322,7 +535,8 @@
                     <h3 class="text-lg font-bold flex items-center uppercase tracking-tighter">
                         <span class="mr-2 text-xl">☢️</span> Reactor Command
                     </h3>
-                    <button id="master-ovr-btn" class="hidden master-ovr-btn px-4 py-1 text-[9px] font-bold border border-gray-600 bg-gray-800 text-gray-400 rounded hover:border-red-500 transition-all uppercase tracking-widest">
+                    <button id="master-ovr-btn"
+                        class="hidden master-ovr-btn px-4 py-1 text-[9px] font-bold border border-gray-600 bg-gray-800 text-gray-400 rounded hover:border-red-500 transition-all uppercase tracking-widest">
                         HOLD MASTER OVR
                     </button>
                 </div>
@@ -332,7 +546,8 @@
                 </div>
 
                 <!-- UPGRADE TRAY -->
-                <div id="upgrade-tray-container" class="bg-gray-900/40 border border-gray-800 p-4 rounded-lg mt-8 shadow-inner">
+                <div id="upgrade-tray-container"
+                    class="bg-gray-900/40 border border-gray-800 p-4 rounded-lg mt-8 shadow-inner">
                     <h4 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 flex items-center">
                         <span class="mr-2 text-blue-500">⚙️</span> STRATEGIC UPGRADES & MODIFIERS
                     </h4>
@@ -348,25 +563,95 @@
     <div id="debug-panel">
         <div class="max-w-6xl mx-auto flex gap-4 items-center flex-wrap">
             <span class="text-red-500 font-bold uppercase">Superintendent Access:</span>
-            <button onclick="state.cash += 100000000; refreshStaticUI();" class="bg-gray-800 px-2 py-1 rounded border border-gray-600 hover:bg-gray-700">+$100M Cash</button>
-            <button onclick="debugInstantResearch()" class="bg-gray-800 px-2 py-1 rounded border border-gray-600 hover:bg-gray-700">Max Research</button>
-            <button onclick="state.reactors.forEach(r => r.heat = 0)" class="bg-gray-800 px-2 py-1 rounded border border-gray-600 hover:bg-gray-700">Reset Heat</button>
-            <button id="btn-ff" onclick="debugToggleFF()" class="bg-gray-800 px-2 py-1 rounded border border-gray-600 hover:bg-gray-700">FF Toggle (OFF)</button>
-            <button onclick="toggleDebug()" class="bg-red-900/40 px-2 py-1 rounded border border-red-500 text-red-500 ml-auto">CLOSE CONSOLE</button>
+            <button onclick="state.cash += 100000000; refreshStaticUI();"
+                class="bg-gray-800 px-2 py-1 rounded border border-gray-600 hover:bg-gray-700">+$100M Cash</button>
+            <button onclick="debugInstantResearch()"
+                class="bg-gray-800 px-2 py-1 rounded border border-gray-600 hover:bg-gray-700">Max Research</button>
+            <button onclick="state.reactors.forEach(r => r.heat = 0)"
+                class="bg-gray-800 px-2 py-1 rounded border border-gray-600 hover:bg-gray-700">Reset Heat</button>
+            <button id="btn-ff" onclick="debugToggleFF()"
+                class="bg-gray-800 px-2 py-1 rounded border border-gray-600 hover:bg-gray-700">FF Toggle (OFF)</button>
+            <button onclick="toggleDebug()"
+                class="bg-red-900/40 px-2 py-1 rounded border border-red-500 text-red-500 ml-auto">CLOSE
+                CONSOLE</button>
         </div>
     </div>
-    <button onclick="toggleDebug()" class="fixed bottom-4 right-4 z-[99] bg-red-900/20 border border-red-900 text-red-900 hover:text-red-500 hover:border-red-500 text-[8px] px-2 py-1 rounded uppercase tracking-widest">Debug Access</button>
+
+    <!-- DATA MODAL -->
+    <div id="data-modal" class="modal-overlay">
+        <div class="modal-box border-blue-500">
+            <span class="modal-close" onclick="toggleDataModal()">[CLOSE]</span>
+            <h2 class="text-xl font-bold text-blue-400 mb-4 uppercase tracking-widest">Data Management</h2>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="text-xs uppercase font-bold text-gray-500">Export Save</label>
+                    <button onclick="exportSave()"
+                        class="w-full py-2 bg-blue-900/20 border border-blue-800 text-blue-400 text-xs font-bold uppercase hover:bg-blue-800/40 mt-1">Copy
+                        Save String to Clipboard</button>
+                </div>
+
+                <div>
+                    <label class="text-xs uppercase font-bold text-gray-500">Import Save</label>
+                    <textarea id="import-area" class="save-string" placeholder="Paste save string here..."></textarea>
+                    <button onclick="importSave()"
+                        class="w-full py-2 bg-emerald-900/20 border border-emerald-800 text-emerald-400 text-xs font-bold uppercase hover:bg-emerald-800/40">Import
+                        Data</button>
+                </div>
+
+                <div class="pt-4 border-t border-gray-800">
+                    <button onclick="hardReset()"
+                        class="w-full py-2 bg-red-900/20 border border-red-800 text-red-500 text-xs font-bold uppercase hover:bg-red-800/40">HARD
+                        RESET (WIPE SAVE)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OFFLINE MODAL -->
+    <div id="offline-modal" class="modal-overlay">
+        <div class="modal-box border-emerald-500">
+            <h2 class="text-xl font-bold text-emerald-400 mb-2 uppercase tracking-widest">System Report</h2>
+            <p class="text-xs text-gray-400 mb-6">Automated systems continued operation during absence.</p>
+
+            <div class="bg-gray-900 p-4 rounded border border-gray-700 mb-6 text-center">
+                <div class="text-[9px] uppercase text-gray-500 tracking-widest">Offline Revenue Generated</div>
+                <div class="text-3xl font-bold text-emerald-400">$<span id="offline-cash">0</span></div>
+                <div class="text-[9px] uppercase text-gray-600 mt-2 tracking-tighter">Efficiency Rating: 50%</div>
+                <div class="text-[9px] uppercase text-gray-600 tracking-tighter">Duration: <span
+                        id="offline-time">0s</span></div>
+            </div>
+
+            <button onclick="closeOfflineModal()"
+                class="w-full py-3 bg-emerald-600 text-white font-bold uppercase tracking-widest hover:bg-emerald-500">Acknowledge
+                & Resume</button>
+        </div>
+    </div>
+
+    <div class="fixed bottom-4 right-4 z-[99] flex gap-2">
+        <button onclick="toggleDataModal()"
+            class="bg-blue-900/20 border border-blue-900 text-blue-400 hover:text-blue-300 hover:border-blue-500 text-[8px] px-2 py-1 rounded uppercase tracking-widest">Data
+            / Save</button>
+        <button onclick="toggleDebug()"
+            class="bg-red-900/20 border border-red-900 text-red-900 hover:text-red-500 hover:border-red-500 text-[8px] px-2 py-1 rounded uppercase tracking-widest">Debug
+            Access</button>
+    </div>
 
     <template id="reactor-template">
-        <div class="reactor-unit p-4 bg-gray-900/80 border border-gray-700 rounded-lg relative overflow-hidden transition-all reactor-card-fixed">
+        <div
+            class="reactor-unit p-4 bg-gray-900/80 border border-gray-700 rounded-lg relative overflow-hidden transition-all reactor-card-fixed">
             <div class="flex justify-between mb-2">
-                <span class="text-xs font-bold text-gray-500 uppercase tracking-tighter">UNIT <span class="u-id">X</span></span>
-                <span class="u-gen text-[9px] bg-gray-800 px-2 py-0.5 rounded text-gray-400 font-bold uppercase tracking-widest">GEN II</span>
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-tighter">UNIT <span
+                        class="u-id">X</span></span>
+                <span
+                    class="u-gen text-[9px] bg-gray-800 px-2 py-0.5 rounded text-gray-400 font-bold uppercase tracking-widest">GEN
+                    II</span>
             </div>
             <div class="mb-4">
                 <div class="flex justify-between text-[10px] font-bold mb-1">
                     <span>CORE TEMP: <span class="u-temp-val">0%</span></span>
-                    <span class="text-emerald-400 tracking-tighter">STACKED MULT: <span class="u-multiplier-val">1.0x</span></span>
+                    <span class="text-emerald-400 tracking-tighter">STACKED MULT: <span
+                            class="u-multiplier-val">1.0x</span></span>
                 </div>
                 <div class="heat-bar-bg rounded-sm">
                     <div class="heat-zone-marker" style="left: 25%;"></div>
@@ -380,10 +665,15 @@
                     <span>Output: <span class="u-power">0</span> MW</span>
                     <span class="text-blue-400">Share: $<span class="u-rev">0</span>/s</span>
                 </div>
-                <button class="u-overdrive-btn w-full py-4 bg-gray-800 border border-gray-600 text-[10px] font-bold tracking-tighter hover:bg-gray-700 active:bg-red-950 transition-colors uppercase">Hold to Overdrive</button>
-                <button class="u-upgrade-btn w-full py-1 text-[9px] text-emerald-500 border border-emerald-900/50 rounded-sm hover:bg-emerald-900/30 transition-all uppercase disabled:opacity-30">Retrofit Core ($<span class="u-upgrade-cost">5k</span>)</button>
+                <button
+                    class="u-overdrive-btn w-full py-4 bg-gray-800 border border-gray-600 text-[10px] font-bold tracking-tighter hover:bg-gray-700 active:bg-red-950 transition-colors uppercase">Hold
+                    to Overdrive</button>
+                <button
+                    class="u-upgrade-btn w-full py-1 text-[9px] text-emerald-500 border border-emerald-900/50 rounded-sm hover:bg-emerald-900/30 transition-all uppercase disabled:opacity-30">Retrofit
+                    Core ($<span class="u-upgrade-cost">5k</span>)</button>
             </div>
-            <div class="u-scram-overlay hidden absolute inset-0 bg-red-950/60 flex flex-col items-center justify-center backdrop-blur-[2px] z-20 text-center">
+            <div
+                class="u-scram-overlay hidden absolute inset-0 bg-red-950/60 flex flex-col items-center justify-center backdrop-blur-[2px] z-20 text-center">
                 <span class="text-white font-bold text-xl tracking-tighter uppercase">Scram Active</span>
                 <span class="text-[10px] text-red-200 mt-2 font-bold uppercase text-shadow-sm">Cooling Core...</span>
             </div>
@@ -391,7 +681,8 @@
     </template>
 
     <template id="buy-unit-template">
-        <div id="add-unit-card" onclick="addReactor()" class="p-4 border-2 border-dashed border-gray-700 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-emerald-500 group transition-all reactor-card-fixed">
+        <div id="add-unit-card" onclick="addReactor()"
+            class="p-4 border-2 border-dashed border-gray-700 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-emerald-500 group transition-all reactor-card-fixed">
             <span class="text-4xl text-gray-600 group-hover:text-emerald-500">+</span>
             <span class="text-xs text-gray-500 mt-2 font-bold uppercase tracking-widest">Commission Unit</span>
             <span class="text-[10px] text-emerald-600 font-bold" id="unit-cost-label-dynamic">$5,000</span>
@@ -401,6 +692,7 @@
     <script>
         const INITIAL_STATE = {
             cash: 150,
+            lastSaveTime: Date.now(),
             managers: [],
             buildings: {
                 house: { count: 0, baseCost: 100, demand: 1, revenue: 2 },
@@ -500,6 +792,119 @@
 
         let state = JSON.parse(JSON.stringify(INITIAL_STATE));
         let lastTick = Date.now();
+
+        // SAVE SYSTEM
+        function saveGame() {
+            state.lastSaveTime = Date.now();
+            localStorage.setItem('atomic-tycoon-save', JSON.stringify(state));
+            console.log('Game Saved');
+        }
+
+        function loadGame() {
+            const saved = localStorage.getItem('atomic-tycoon-save');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    state = { ...INITIAL_STATE, ...parsed, buildings: { ...INITIAL_STATE.buildings, ...parsed.buildings } };
+                    // Deep merge buildings to ensure new types exist
+                    Object.keys(INITIAL_STATE.buildings).forEach(k => {
+                        if (!state.buildings[k]) state.buildings[k] = INITIAL_STATE.buildings[k];
+                    });
+                    // Recalculate managers/reactors if needed (validation)
+                    checkOfflineProgress();
+                } catch (e) { console.error("Save Corrupt", e); }
+            }
+            refreshStaticUI(); renderReactors(); renderManagers();
+        }
+
+        function checkOfflineProgress() {
+            const now = Date.now();
+            const diff = now - state.lastSaveTime;
+            if (diff > 60000) { // 1 minute minimum
+                // Estimate earnings: (Current Revenue / s) * (diff / 1000) * 0.50
+                // Note: We need to calculate revenue based on current structure count
+                const pC = state.managers.filter(m => m.type === 'procurement').length; // Actually we need Eng/Tax bonuses
+                // Let's run a quick sim
+
+                const eC = state.managers.filter(m => m.type === 'engineer').length;
+                const tC = state.managers.filter(m => m.type === 'tax').length;
+                const pM = 1 + (eC * 0.15);
+                const rM = 1 + (tC * 0.15);
+
+                const dcDemand = state.hasLLM ? 400 : (state.hasAI ? 600 : 200);
+                const dcRevenue = state.hasAI ? 5000 : 2500;
+
+                // Calc total power capacity (approximate avg heat 0)
+                let totalCap = 0;
+                state.reactors.forEach(r => {
+                    const genMult = GEN_STABILITY[r.gen] || 1.0; // Wait, stability is for heat. We need output.
+                    // output = base * 1 * pM. (Assumes no overdrive offline)
+                    totalCap += r.baseMW * pM;
+                });
+
+                const demand = (state.buildings.house.count * 1) + (state.buildings.factory.count * 25) +
+                    (state.buildings.datacenter.count * dcDemand) + (state.buildings.skyscraper.count * 1000);
+
+                const isBrownout = totalCap < demand && demand > 0;
+                const eff = isBrownout ? (state.hasSmartGrid ? 0.90 : 0.70) : 1.0;
+
+                const cityBase = (state.buildings.house.count * 2) + (state.buildings.factory.count * 150) +
+                    (state.buildings.datacenter.count * dcRevenue) + (state.buildings.skyscraper.count * 25000);
+
+                const reactorUnitRev = state.reactors.reduce((acc, r) => acc + (GEN_BASE_GRANT[r.gen] || 5), 0);
+
+                const surplus = Math.max(0, totalCap - demand);
+                const exportInc = surplus * 0.5;
+
+                const revPerSec = ((cityBase * eff) + reactorUnitRev) * rM + exportInc;
+
+                const earned = revPerSec * (diff / 1000) * 0.50; // 50% penalty
+
+                if (earned > 0) {
+                    state.cash += earned;
+                    document.getElementById('offline-cash').innerText = formatNum(earned);
+                    document.getElementById('offline-time').innerText = formatTime(diff);
+                    document.getElementById('offline-modal').classList.add('open');
+                }
+            }
+        }
+
+        function toggleDataModal() { document.getElementById('data-modal').classList.toggle('open'); }
+        function closeOfflineModal() { document.getElementById('offline-modal').classList.remove('open'); }
+
+        function exportSave() {
+            const str = btoa(JSON.stringify(state));
+            navigator.clipboard.writeText(str).then(() => alert("Save Copied to Clipboard!"));
+        }
+
+        function importSave() {
+            const str = document.getElementById('import-area').value;
+            try {
+                const json = atob(str);
+                const parsed = JSON.parse(json);
+                state = parsed;
+                document.getElementById('data-modal').classList.remove('open');
+                saveGame();
+                location.reload();
+            } catch (e) { alert("Invalid Save String"); }
+        }
+
+        function hardReset() {
+            if (confirm("Are you sure? This will wipe all progress.")) {
+                localStorage.removeItem('atomic-tycoon-save');
+                location.reload();
+            }
+        }
+
+        function formatTime(ms) {
+            const s = Math.floor(ms / 1000);
+            if (s < 60) return s + 's';
+            if (s < 3600) return Math.floor(s / 60) + 'm';
+            return Math.floor(s / 3600) + 'h';
+        }
+
+        setInterval(saveGame, 30000); // Auto save 30s
+        window.onbeforeunload = saveGame; // Save on exit
 
         function getHeatFillClass(heat) {
             if (heat >= 75) return 'zone-tier-4';
@@ -691,7 +1096,7 @@
                     const ct = MANAGER_TYPES[m.type];
                     slot.innerHTML = `
                         <div class="flex justify-between items-start">
-                            <span class="text-[7px] font-bold text-gray-600 uppercase flex items-center">P-${i+1} <div class="tooltip ml-1 cursor-help"><span class="text-[10px] text-gray-400 bg-gray-800 px-1 rounded-full border border-gray-700">?</span><span class="tooltiptext" id="manager-tooltip-${i}">${ct.desc}</span></div></span>
+                            <span class="text-[7px] font-bold text-gray-600 uppercase flex items-center">P-${i + 1} <div class="tooltip ml-1 cursor-help"><span class="text-[10px] text-gray-400 bg-gray-800 px-1 rounded-full border border-gray-700">?</span><span class="tooltiptext" id="manager-tooltip-${i}">${ct.desc}</span></div></span>
                             <span class="text-[7px] font-bold text-emerald-500 uppercase animate-pulse">Online</span>
                         </div>
                         <div class="my-1"><select class="manager-select" onchange="updateManagerType(${m.id}, this.value)">${Object.keys(MANAGER_TYPES).map(t => `<option value="${t}" ${t === m.type ? 'selected' : ''}>${MANAGER_TYPES[t].name}</option>`).join('')}</select></div>
@@ -710,7 +1115,7 @@
         function addReactor() {
             if (state.reactors.length < 4 && state.cash >= state.nextUnitCost) {
                 state.cash -= state.nextUnitCost;
-                state.reactors.push({ id: state.reactors.length+1, gen: 2, heat: 0, isOverdrive: false, isScrammed: false, upgradeCost: 15000*(state.reactors.length+1), baseMW: 30 });
+                state.reactors.push({ id: state.reactors.length + 1, gen: 2, heat: 0, isOverdrive: false, isScrammed: false, upgradeCost: 15000 * (state.reactors.length + 1), baseMW: 30 });
                 state.nextUnitCost *= 10;
                 renderReactors(); refreshStaticUI();
             }
@@ -825,11 +1230,13 @@
             const isBrownout = powerAvail < demand && demand > 0, eff = isBrownout ? (state.hasSmartGrid ? 0.90 : 0.70) : 1.00;
 
             let wm = 0;
-            if (powerAvail > 0) state.reactors.forEach(r => { if (!r.isScrammed) {
-                const s = (r.baseMW * (r.isOverdrive?2.5:1) * pM) / powerAvail;
-                const tierIdx = (r.heat < 25 ? 0 : r.heat < 50 ? 1 : r.heat < 75 ? 2 : 3);
-                wm += (r.heat < 1 ? 1 : GEN_TIER_MULTIPLIERS[r.gen][tierIdx]) * s;
-            }});
+            if (powerAvail > 0) state.reactors.forEach(r => {
+                if (!r.isScrammed) {
+                    const s = (r.baseMW * (r.isOverdrive ? 2.5 : 1) * pM) / powerAvail;
+                    const tierIdx = (r.heat < 25 ? 0 : r.heat < 50 ? 1 : r.heat < 75 ? 2 : 3);
+                    wm += (r.heat < 1 ? 1 : GEN_TIER_MULTIPLIERS[r.gen][tierIdx]) * s;
+                }
+            });
 
             const cityBase = (state.buildings.house.count * 2) + (state.buildings.factory.count * 150) + (state.buildings.datacenter.count * dcRevenue) + (state.buildings.skyscraper.count * 25000);
             const surplus = Math.max(0, powerAvail - demand), exportInc = surplus * 0.5;
@@ -849,7 +1256,7 @@
 
             const effTag = document.getElementById('efficiency-tag');
             if (effTag) {
-                effTag.innerText = "Efficiency: " + Math.round(eff*100) + "%";
+                effTag.innerText = "Efficiency: " + Math.round(eff * 100) + "%";
                 effTag.className = "text-[9px] font-bold px-2 py-0.5 rounded-full inline-block mt-1 " + (isBrownout ? 'text-red-500 bg-red-950/30' : 'text-emerald-500 bg-emerald-950/30');
             }
 
@@ -860,8 +1267,8 @@
             }
 
             if (Math.abs(state.cash - state.lastTickCash) > (state.cash * 0.05) || state.cash < 500) {
-                 renderUpgradeTray();
-                 state.lastTickCash = state.cash;
+                renderUpgradeTray();
+                state.lastTickCash = state.cash;
             }
 
             const trayItems = document.querySelectorAll('.upgrade-tray-item');
@@ -882,12 +1289,12 @@
                     gridDiv.innerHTML = '';
                     let d = 0;
                     const types = [
-                        {c: state.buildings.skyscraper.count, cl: 'bg-cyan-400 shadow-[0_0_8px_cyan]'},
-                        {c: state.buildings.datacenter.count, cl: 'bg-purple-500 shadow-[0_0_5px_purple]'},
-                        {c: state.buildings.factory.count, cl: 'bg-blue-500 shadow-[0_0_5px_blue]'},
-                        {c: state.buildings.house.count, cl: 'bg-emerald-500 shadow-[0_0_5px_emerald]'}
+                        { c: state.buildings.skyscraper.count, cl: 'bg-cyan-400 shadow-[0_0_8px_cyan]' },
+                        { c: state.buildings.datacenter.count, cl: 'bg-purple-500 shadow-[0_0_5px_purple]' },
+                        { c: state.buildings.factory.count, cl: 'bg-blue-500 shadow-[0_0_5px_blue]' },
+                        { c: state.buildings.house.count, cl: 'bg-emerald-500 shadow-[0_0_5px_emerald]' }
                     ];
-                    types.forEach(type => { for(let i=0; i<type.c && d < state.districtSize; i++) { const el = document.createElement('div'); el.className = "city-grid-item " + type.cl; gridDiv.appendChild(el); d++; } });
+                    types.forEach(type => { for (let i = 0; i < type.c && d < state.districtSize; i++) { const el = document.createElement('div'); el.className = "city-grid-item " + type.cl; gridDiv.appendChild(el); d++; } });
                 }
                 gridDiv.querySelectorAll('.city-grid-item').forEach(item => item.classList.toggle('city-grid-dim', isBrownout));
                 gridDiv.classList.toggle('brownout-flicker', isBrownout);
@@ -899,7 +1306,9 @@
             requestAnimationFrame(gameLoop);
         }
 
+        loadGame(); // Load on startup
         renderReactors(); renderManagers(); refreshStaticUI(); requestAnimationFrame(gameLoop);
     </script>
 </body>
+
 </html>
