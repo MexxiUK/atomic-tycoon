@@ -374,10 +374,15 @@ function renderReactors() {
         root.querySelector('.u-coolant-cost').innerText = formatNum(coolCost);
 
         coolBtn.onclick = () => injectCoolant(r.id);
+
+        // Disable if affordable OR if heat is too low (< 1%)
         const canAffordCoolant = state.cash >= coolCost;
-        coolBtn.classList.toggle('opacity-50', !canAffordCoolant);
-        coolBtn.classList.toggle('cursor-not-allowed', !canAffordCoolant);
-        if (!canAffordCoolant) coolBtn.disabled = true;
+        const hasHeat = r.heat >= 1;
+        const isEnabled = canAffordCoolant && hasHeat;
+
+        coolBtn.classList.toggle('opacity-50', !isEnabled);
+        coolBtn.classList.toggle('cursor-not-allowed', !isEnabled);
+        coolBtn.disabled = !isEnabled;
 
         const ovrBtn = root.querySelector('.u-overdrive-btn');
         const startO = (e) => { e.preventDefault(); if (!state.masterOverdriveActive) r.isOverdrive = true; };
@@ -732,6 +737,19 @@ function gameLoop() {
         f.className = 'heat-bar-fill u-heat-fill ' + getHeatFillClass(r.heat);
         ui.querySelector('.u-power').innerText = Math.floor(o); ui.querySelector('.u-rev').innerText = formatNum(unitRev);
         ui.querySelector('.u-scram-overlay').classList.toggle('hidden', !r.isScrammed);
+
+        // Dynamic update of Coolant Button state
+        const coolBtn = ui.querySelector('.u-coolant-btn');
+        if (coolBtn) {
+            const coolCost = getCoolantCost(r.gen);
+            const canAfford = state.cash >= coolCost;
+            const hasHeat = r.heat >= 1;
+            const isEnabled = canAfford && hasHeat;
+
+            coolBtn.disabled = !isEnabled;
+            coolBtn.classList.toggle('opacity-50', !isEnabled);
+            coolBtn.classList.toggle('cursor-not-allowed', !isEnabled);
+        }
     });
 
     if (cascade) {
