@@ -456,7 +456,7 @@
             font-weight: bold;
             font-family: 'Courier New', monospace;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-            animation: floatUp 2s ease-out forwards;
+            animation: floatUp 4s ease-out forwards;
         }
     </style>
 </head>
@@ -1548,7 +1548,7 @@
             el.style.left = x + 'px';
             el.style.top = y + 'px';
             document.body.appendChild(el);
-            setTimeout(() => el.remove(), 2000);
+            setTimeout(() => el.remove(), 4000);
         }
 
         function completeContract(success) {
