@@ -33,10 +33,6 @@ You're the operator of a nuclear power facility. Your goal is to generate electr
 # Just open index.html
 ```
 
-### Debug Mode
-
-Set `DEBUG_ENABLED = true` in `js/main.js` to access developer tools.
-
 ## 📝 License
 
 MIT
