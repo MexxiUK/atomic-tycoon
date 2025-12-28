@@ -4,15 +4,15 @@ const INITIAL_STATE = {
     managers: [],
     unlockedManagerSlots: 2, // New default: 2 slots open
     buildings: {
-        house: { count: 0, baseCost: 100, demand: 1, revenue: 2 },
-        factory: { count: 0, baseCost: 15000, demand: 25, revenue: 150 },
-        datacenter: { count: 0, baseCost: 2000000, demand: 200, revenue: 2500 },
-        cryoplant: { count: 0, baseCost: 100000000, demand: 50, revenue: 0 },
-        skyscraper: { count: 0, baseCost: 50000000, demand: 1000, revenue: 25000 },
-        battery: { count: 0, baseCost: 50000, demand: 0, capacity: 100, stored: 0 }
+        house: { count: 0, baseCost: 250, demand: 1, revenue: 2 },
+        factory: { count: 0, baseCost: 25000, demand: 25, revenue: 150 },
+        datacenter: { count: 0, baseCost: 5000000, demand: 200, revenue: 2500 },
+        cryoplant: { count: 0, baseCost: 250000000, demand: 50, revenue: 0 },
+        skyscraper: { count: 0, baseCost: 75000000, demand: 1000, revenue: 25000 },
+        battery: { count: 0, baseCost: 150000, demand: 0, capacity: 100, stored: 0 }
     },
     reactors: [{ id: 1, gen: 2, heat: 0, isOverdrive: false, isScrammed: false, upgradeCost: 5000, baseMW: 150 }],
-    nextUnitCost: 5000,
+    nextUnitCost: 100000,
     hasSync: false,
     hasFirefighters: false,
     hasSmartGrid: false,
@@ -75,13 +75,17 @@ const RESEARCH_TREE = [
 
     // Tier 4 - Mastery
     { id: 'gen4_reactor', name: 'GEN IV Core Design', desc: 'Unlocks Generation 4 reactor construction.', cost: 500000, requires: ['gen3_reactor'], row: 4, col: 0, category: 'core', effect: (s) => { if (s.maxGenUnlocked < 4) s.maxGenUnlocked = 4; } },
-    { id: 'cryo_tech', name: 'Cryogenic Engineering', desc: 'Unlocks Cryo-Plant construction. Reduces global reactor heat.', cost: 5000000, requires: ['gen4_reactor'], row: 4, col: 0, category: 'core', effect: (s) => { } },
     { id: 'battery_t3', name: 'Graphene Supercaps', desc: '+8000 MWs battery capacity per unit.', cost: 1000000, requires: ['battery_t2'], row: 4, col: 1, category: 'storage', effect: (s) => { s.hasTier3Bat = true; s.buildings.battery.capacity += 8000; } },
     { id: 'maintenance', name: 'Elite Maintenance', desc: '+50% reactor output.', cost: 500000, requires: ['llm_opt', 'gen3_reactor'], row: 4, col: 2, category: 'digital', effect: (s) => { s.hasMaintenance = true; } },
 
-    // Tier 5 - Endgame
-    { id: 'fusion', name: 'Fusion Technology', desc: 'Unlocks GEN V Fusion reactors.', cost: 10000000, requires: ['gen4_reactor', 'battery_t3'], row: 5, col: 0, category: 'core', effect: (s) => { if (s.maxGenUnlocked < 5) s.maxGenUnlocked = 5; } },
-    { id: 'quantum_bat', name: 'Quantum Storage', desc: '+40000 MWs. Near-infinite cycle life.', cost: 50000000, requires: ['battery_t3'], row: 5, col: 1, category: 'storage', effect: (s) => { s.hasTier4Bat = true; s.buildings.battery.capacity += 40000; } }
+    // Tier 5 - Expansion
+    { id: 'cryo_tech', name: 'Cryogenic Engineering', desc: 'Unlocks Cryo-Plant construction. Reduces global reactor heat.', cost: 5000000, requires: ['gen4_reactor'], row: 5, col: 0, category: 'core', effect: (s) => { } },
+    { id: 'personnel_3', name: 'Personnel Slot 3', desc: 'Unlocks the 3rd Manager Slot.', cost: 500000, requires: ['maintenance'], row: 5, col: 2, category: 'digital', effect: (s) => { s.unlockedManagerSlots = 3; } },
+
+    // Tier 6 - Endgame
+    { id: 'fusion', name: 'Fusion Technology', desc: 'Unlocks GEN V Fusion reactors.', cost: 10000000, requires: ['gen4_reactor', 'battery_t3'], row: 6, col: 0, category: 'core', effect: (s) => { if (s.maxGenUnlocked < 5) s.maxGenUnlocked = 5; } },
+    { id: 'quantum_bat', name: 'Quantum Storage', desc: '+40000 MWs. Near-infinite cycle life.', cost: 50000000, requires: ['battery_t3'], row: 6, col: 1, category: 'storage', effect: (s) => { s.hasTier4Bat = true; s.buildings.battery.capacity += 40000; } },
+    { id: 'personnel_4', name: 'Personnel Slot 4', desc: 'Unlocks the 4th Manager Slot.', cost: 5000000, requires: ['personnel_3'], row: 6, col: 2, category: 'digital', effect: (s) => { s.unlockedManagerSlots = 4; } }
 ];
 
 // Prestige Bonuses (Purchased with Prestige Points)

@@ -1,5 +1,5 @@
 // ========== DEBUG CONFIGURATION ==========
-const DEBUG_ENABLED = false; // Set to false for production
+const DEBUG_ENABLED = true; // Set to true for verification
 
 let state = JSON.parse(JSON.stringify(INITIAL_STATE));
 let lastTick = Date.now();
@@ -21,6 +21,10 @@ function assignUpgradeActions() {
     UPGRADES.find(u => u.id === 'tier2_bat').action = () => { state.hasTier2Bat = true; recalcBatteryCapacity(); };
     UPGRADES.find(u => u.id === 'tier3_bat').action = () => { state.hasTier3Bat = true; recalcBatteryCapacity(); };
     UPGRADES.find(u => u.id === 'tier4_bat').action = () => { state.hasTier4Bat = true; recalcBatteryCapacity(); };
+
+    // Personnel Upgrades
+    UPGRADES.find(u => u.id === 'personnel_3').action = () => { state.unlockedManagerSlots = 3; renderManagers(); };
+    UPGRADES.find(u => u.id === 'personnel_4').action = () => { state.unlockedManagerSlots = 4; renderManagers(); };
 }
 
 function recalcBatteryCapacity() {
@@ -369,9 +373,9 @@ function loadGame() {
 
             // Validate Next Unit Cost for new scaling
             const rCount = state.reactors.length;
-            if (rCount === 1) state.nextUnitCost = 5000;
-            else if (rCount === 2) state.nextUnitCost = 500000;
-            else if (rCount === 3) state.nextUnitCost = 50000000;
+            if (rCount === 1) state.nextUnitCost = 100000;
+            else if (rCount === 2) state.nextUnitCost = 10000000;
+            else if (rCount === 3) state.nextUnitCost = 1000000000;
 
             // v1.5.0 Migration: Research Tree & Prestige System
             if (!state.researchUnlocked) state.researchUnlocked = [];
@@ -524,7 +528,7 @@ function refreshStaticUI() {
         const countEl = document.getElementById('count-' + t);
         const costEl = document.getElementById('cost-' + t);
         if (countEl) countEl.innerText = b.count;
-        if (costEl) costEl.innerText = formatNum(Math.floor(b.baseCost * Math.pow(1.2, b.count) * discount));
+        if (costEl) costEl.innerText = formatNum(Math.floor(b.baseCost * Math.pow(1.3, b.count) * discount));
     });
 
     // Update Slider
@@ -649,8 +653,8 @@ function addReactor() {
         state.reactors.push({ id: state.reactors.length + 1, gen: 2, heat: 0, isOverdrive: false, isScrammed: false, baseMW: 150 });
 
         // New Cost Scaling
-        if (state.reactors.length === 2) state.nextUnitCost = 500000;
-        else if (state.reactors.length === 3) state.nextUnitCost = 50000000;
+        if (state.reactors.length === 2) state.nextUnitCost = 10000000;
+        else if (state.reactors.length === 3) state.nextUnitCost = 1000000000;
 
         renderReactors(); refreshStaticUI();
         scheduleSave();
@@ -762,7 +766,7 @@ function buyBuilding(type) {
     const b = state.buildings[type];
     const pC = state.managers.filter(m => m.type === 'procurement').length;
     const disc = 1 - (pC * 0.10);
-    const cost = Math.floor(b.baseCost * Math.pow(1.2, b.count) * disc);
+    const cost = Math.floor(b.baseCost * Math.pow(1.3, b.count) * disc);
     if ((type === 'factory' && state.buildings.house.count < 10) ||
         (type === 'datacenter' && state.buildings.factory.count < 20) ||
         (type === 'skyscraper' && (state.buildings.datacenter.count < 10 || state.maxGenUnlocked < 5))) return;
@@ -806,15 +810,13 @@ function renderManagers() {
         slot.className = "border border-gray-700 bg-gray-900/80 rounded p-2 flex flex-col justify-between h-20 transition-all";
 
         // Locked Slot Logic
+        // Locked Slot Logic
         if (i >= state.unlockedManagerSlots) {
-            const unlockCost = i === 2 ? 500000 : 5000000;
-            slot.classList.add('opacity-75');
+            slot.classList.add('opacity-50', 'grayscale');
             slot.innerHTML = `
-                <div class="h-full flex flex-col items-center justify-center text-center">
-                    <span class="text-[8px] font-bold text-gray-500 uppercase tracking-widest mb-1">SLOT LOCKED</span>
-                    <button onclick="unlockManagerSlot(${i})" class="bg-gray-800 border border-gray-600 hover:border-emerald-500 hover:text-emerald-400 text-gray-400 px-2 py-1 rounded text-[7px] font-bold uppercase transition-all">
-                        Unlock $${formatNum(unlockCost)}
-                    </button>
+                <div class="h-full flex flex-col items-center justify-center text-center p-2">
+                    <span class="text-[8px] font-bold text-gray-500 uppercase tracking-widest mb-1">LOCKED</span>
+                    <span class="text-[6px] text-gray-600 font-bold uppercase">Research Required</span>
                 </div>
             `;
             container.appendChild(slot);
@@ -842,16 +844,7 @@ function renderManagers() {
     if (managerCountEl) managerCountEl.innerText = state.managers.length;
 }
 
-function unlockManagerSlot(index) {
-    const cost = index === 2 ? 500000 : 5000000;
-    if (state.cash >= cost) {
-        state.cash -= cost;
-        state.unlockedManagerSlots++;
-        scheduleSave();
-        renderManagers();
-        refreshStaticUI(); // Update cash display
-    }
-}
+
 
 function formatNum(num) {
     if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
