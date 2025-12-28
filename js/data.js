@@ -62,7 +62,7 @@ const RESEARCH_TREE = [
     { id: 'ai_systems', name: 'AI Systems', desc: 'Computational optimization for power grids.', cost: 10000, requires: ['core_physics'], row: 1, col: 2, category: 'digital', effect: (s) => { s.hasSmartGrid = true; } },
 
     // Tier 2 - Specializations
-    { id: 'overdrive_tech', name: 'Overdrive Protocol', desc: 'Synchronized reactor overclocking.', cost: 25000, requires: ['thermal_eng'], row: 2, col: 0, category: 'core', effect: (s) => { s.hasSync = true; } },
+    { id: 'overdrive_tech', name: 'Master Overdrive Protocol', desc: 'Synchronized reactor overclocking.', cost: 25000, requires: ['thermal_eng'], row: 2, col: 0, category: 'core', effect: (s) => { s.hasSync = true; } },
     { id: 'battery_t1', name: 'Lithium-Ion Cells', desc: '+400 MWs battery capacity per unit.', cost: 50000, requires: ['grid_tech'], row: 2, col: 1, category: 'storage', effect: (s) => { s.hasTier1Bat = true; s.buildings.battery.capacity += 400; } },
     { id: 'neural_net', name: 'Neural Networks', desc: 'AI-powered datacenters. 2x profit, 3x power.', cost: 75000, requires: ['ai_systems'], row: 2, col: 2, category: 'digital', effect: (s) => { s.hasAI = true; } },
 
