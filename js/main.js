@@ -314,12 +314,30 @@ function loadGame() {
     if (saved) {
         try {
             const parsed = JSON.parse(saved);
-            state = { ...INITIAL_STATE, ...parsed, buildings: { ...INITIAL_STATE.buildings, ...parsed.buildings } };
-            // Deep merge buildings to ensure new types exist
-            Object.keys(INITIAL_STATE.buildings).forEach(k => {
-                if (!state.buildings[k]) state.buildings[k] = INITIAL_STATE.buildings[k];
-            });
-            if (!state.market) state.market = { ...INITIAL_STATE.market };
+
+            // Start with a fresh deep copy of INITIAL_STATE to avoid polluting the constant
+            const freshState = JSON.parse(JSON.stringify(INITIAL_STATE));
+
+            // Merge top-level properties from save
+            state = { ...freshState, ...parsed };
+
+            // Deep merge buildings (critical for count/cost preservation)
+            if (parsed.buildings) {
+                state.buildings = { ...freshState.buildings }; // Fresh object
+                Object.keys(parsed.buildings).forEach(k => {
+                    // Merge individual building data if it exists in freshState (or allow custom legacy types)
+                    if (state.buildings[k]) {
+                        state.buildings[k] = { ...state.buildings[k], ...parsed.buildings[k] };
+                    } else {
+                        state.buildings[k] = parsed.buildings[k];
+                    }
+                });
+            }
+
+            // Restore deep structures if missing in save (Legacy support) or ensure fresh copy if missing
+            if (!state.market) state.market = { ...freshState.market };
+            if (!state.contracts) state.contracts = { ...freshState.contracts };
+            if (!state.reactors) state.reactors = [...freshState.reactors];
 
             // Initialize Battery State if missing (v1.3.0)
             if (!state.buildings.battery) state.buildings.battery = { ...INITIAL_STATE.buildings.battery };
