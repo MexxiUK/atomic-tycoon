@@ -57,36 +57,36 @@ const INITIAL_STATE = {
 // Research Tree Definition
 const RESEARCH_TREE = [
     // Tier 0 - Root
-    { id: 'core_physics', name: 'Core Physics', desc: 'Foundation of reactor science. Unlocks advanced research paths.', cost: 1000, requires: [], row: 0, col: 1, category: 'core', effect: () => { } },
+    { id: 'core_physics', name: 'Core Physics', desc: 'Foundation of reactor science. Unlocks advanced research paths.', cost: 15000, requires: [], row: 0, col: 1, category: 'core', effect: () => { } },
 
     // Tier 1 - Branches
-    { id: 'thermal_eng', name: 'Thermal Engineering', desc: 'Unlocks Firefighter crews to reduce SCRAM recovery time.', cost: 5000, requires: ['core_physics'], row: 1, col: 0, category: 'core', effect: (s) => { s.hasFirefighters = true; } },
-    { id: 'grid_tech', name: 'Grid Technology', desc: 'Power distribution and storage systems.', cost: 5000, requires: ['core_physics'], row: 1, col: 1, category: 'storage', effect: (s) => { s.hasUnlockBattery = true; } },
-    { id: 'ai_systems', name: 'AI Systems', desc: 'Computational optimization for power grids.', cost: 10000, requires: ['core_physics'], row: 1, col: 2, category: 'digital', effect: (s) => { s.hasSmartGrid = true; } },
+    { id: 'thermal_eng', name: 'Thermal Engineering', desc: 'Unlocks Firefighter crews to reduce SCRAM recovery time.', cost: 85000, requires: ['core_physics'], row: 1, col: 0, category: 'core', effect: (s) => { s.hasFirefighters = true; } },
+    { id: 'grid_tech', name: 'Grid Technology', desc: 'Power distribution and storage systems.', cost: 75000, requires: ['core_physics'], row: 1, col: 1, category: 'storage', effect: (s) => { s.hasUnlockBattery = true; } },
+    { id: 'ai_systems', name: 'AI Systems', desc: 'Computational optimization for power grids.', cost: 125000, requires: ['core_physics'], row: 1, col: 2, category: 'digital', effect: (s) => { s.hasSmartGrid = true; } },
 
     // Tier 2 - Specializations
-    { id: 'overdrive_tech', name: 'Master Overdrive Protocol', desc: 'Synchronized reactor overclocking.', cost: 25000, requires: ['thermal_eng'], row: 2, col: 0, category: 'core', effect: (s) => { s.hasSync = true; } },
-    { id: 'battery_t1', name: 'Lithium-Ion Cells', desc: '+400 MWs battery capacity per unit.', cost: 50000, requires: ['grid_tech'], row: 2, col: 1, category: 'storage', effect: (s) => { s.hasTier1Bat = true; s.buildings.battery.capacity += 400; } },
-    { id: 'neural_net', name: 'Neural Networks', desc: 'AI-powered datacenters. 2x profit, 3x power.', cost: 75000, requires: ['ai_systems'], row: 2, col: 2, category: 'digital', effect: (s) => { s.hasAI = true; } },
+    { id: 'overdrive_tech', name: 'Master Overdrive Protocol', desc: 'Synchronized reactor overclocking.', cost: 350000, requires: ['thermal_eng'], row: 2, col: 0, category: 'core', effect: (s) => { s.hasSync = true; } },
+    { id: 'battery_t1', name: 'Lithium-Ion Cells', desc: '+400 MWs battery capacity per unit.', cost: 250000, requires: ['grid_tech'], row: 2, col: 1, category: 'storage', effect: (s) => { s.hasTier1Bat = true; s.buildings.battery.capacity += 400; } },
+    { id: 'neural_net', name: 'Neural Networks', desc: 'AI-powered datacenters. 2x profit, 3x power.', cost: 500000, requires: ['ai_systems'], row: 2, col: 2, category: 'digital', effect: (s) => { s.hasAI = true; } },
 
     // Tier 3 - Advanced
-    { id: 'gen3_reactor', name: 'GEN III Core Design', desc: 'Unlocks Generation 3 reactor construction.', cost: 100000, requires: ['overdrive_tech'], row: 3, col: 0, category: 'core', effect: (s) => { if (s.maxGenUnlocked < 3) s.maxGenUnlocked = 3; } },
-    { id: 'battery_t2', name: 'Solid State Storage', desc: '+1500 MWs battery capacity per unit.', cost: 200000, requires: ['battery_t1'], row: 3, col: 1, category: 'storage', effect: (s) => { s.hasTier2Bat = true; s.buildings.battery.capacity += 1500; } },
-    { id: 'llm_opt', name: 'LLM Optimization', desc: 'Reduce datacenter power to 2x (400MW).', cost: 250000, requires: ['neural_net'], row: 3, col: 2, category: 'digital', effect: (s) => { s.hasLLM = true; } },
+    { id: 'gen3_reactor', name: 'GEN III Core Design', desc: 'Unlocks Generation 3 reactor construction.', cost: 1500000, requires: ['overdrive_tech'], row: 3, col: 0, category: 'core', effect: (s) => { if (s.maxGenUnlocked < 3) s.maxGenUnlocked = 3; } },
+    { id: 'battery_t2', name: 'Solid State Storage', desc: '+1500 MWs battery capacity per unit.', cost: 2500000, requires: ['battery_t1'], row: 3, col: 1, category: 'storage', effect: (s) => { s.hasTier2Bat = true; s.buildings.battery.capacity += 1500; } },
+    { id: 'llm_opt', name: 'LLM Optimization', desc: 'Reduce datacenter power to 2x (400MW).', cost: 3500000, requires: ['neural_net'], row: 3, col: 2, category: 'digital', effect: (s) => { s.hasLLM = true; } },
 
     // Tier 4 - Mastery
-    { id: 'gen4_reactor', name: 'GEN IV Core Design', desc: 'Unlocks Generation 4 reactor construction.', cost: 500000, requires: ['gen3_reactor'], row: 4, col: 0, category: 'core', effect: (s) => { if (s.maxGenUnlocked < 4) s.maxGenUnlocked = 4; } },
-    { id: 'battery_t3', name: 'Graphene Supercaps', desc: '+8000 MWs battery capacity per unit.', cost: 1000000, requires: ['battery_t2'], row: 4, col: 1, category: 'storage', effect: (s) => { s.hasTier3Bat = true; s.buildings.battery.capacity += 8000; } },
-    { id: 'maintenance', name: 'Elite Maintenance', desc: '+50% reactor output.', cost: 500000, requires: ['llm_opt', 'gen3_reactor'], row: 4, col: 2, category: 'digital', effect: (s) => { s.hasMaintenance = true; } },
+    { id: 'gen4_reactor', name: 'GEN IV Core Design', desc: 'Unlocks Generation 4 reactor construction.', cost: 15000000, requires: ['gen3_reactor'], row: 4, col: 0, category: 'core', effect: (s) => { if (s.maxGenUnlocked < 4) s.maxGenUnlocked = 4; } },
+    { id: 'battery_t3', name: 'Graphene Supercaps', desc: '+8000 MWs battery capacity per unit.', cost: 25000000, requires: ['battery_t2'], row: 4, col: 1, category: 'storage', effect: (s) => { s.hasTier3Bat = true; s.buildings.battery.capacity += 8000; } },
+    { id: 'maintenance', name: 'Elite Maintenance', desc: '+50% reactor output.', cost: 12500000, requires: ['llm_opt', 'gen3_reactor'], row: 4, col: 2, category: 'digital', effect: (s) => { s.hasMaintenance = true; } },
 
     // Tier 5 - Expansion
-    { id: 'cryo_tech', name: 'Cryogenic Engineering', desc: 'Unlocks Cryo-Plant construction. Reduces global reactor heat.', cost: 5000000, requires: ['gen4_reactor'], row: 5, col: 0, category: 'core', effect: (s) => { } },
-    { id: 'personnel_3', name: 'Personnel Slot 3', desc: 'Unlocks the 3rd Manager Slot.', cost: 500000, requires: ['maintenance'], row: 5, col: 2, category: 'digital', effect: (s) => { s.unlockedManagerSlots = 3; } },
+    { id: 'cryo_tech', name: 'Cryogenic Engineering', desc: 'Unlocks Cryo-Plant construction. Reduces global reactor heat.', cost: 250000000, requires: ['gen4_reactor'], row: 5, col: 0, category: 'core', effect: (s) => { } },
+    { id: 'personnel_3', name: 'Personnel Slot 3', desc: 'Unlocks the 3rd Manager Slot.', cost: 7500000, requires: ['maintenance'], row: 5, col: 2, category: 'digital', effect: (s) => { s.unlockedManagerSlots = 3; } },
 
     // Tier 6 - Endgame
-    { id: 'fusion', name: 'Fusion Technology', desc: 'Unlocks GEN V Fusion reactors.', cost: 10000000, requires: ['gen4_reactor', 'battery_t3'], row: 6, col: 0, category: 'core', effect: (s) => { if (s.maxGenUnlocked < 5) s.maxGenUnlocked = 5; } },
-    { id: 'quantum_bat', name: 'Quantum Storage', desc: '+40000 MWs. Near-infinite cycle life.', cost: 50000000, requires: ['battery_t3'], row: 6, col: 1, category: 'storage', effect: (s) => { s.hasTier4Bat = true; s.buildings.battery.capacity += 40000; } },
-    { id: 'personnel_4', name: 'Personnel Slot 4', desc: 'Unlocks the 4th Manager Slot.', cost: 5000000, requires: ['personnel_3'], row: 6, col: 2, category: 'digital', effect: (s) => { s.unlockedManagerSlots = 4; } }
+    { id: 'fusion', name: 'Fusion Technology', desc: 'Unlocks GEN V Fusion reactors.', cost: 1000000000, requires: ['gen4_reactor', 'battery_t3'], row: 6, col: 0, category: 'core', effect: (s) => { if (s.maxGenUnlocked < 5) s.maxGenUnlocked = 5; } },
+    { id: 'quantum_bat', name: 'Quantum Storage', desc: '+40000 MWs. Near-infinite cycle life.', cost: 500000000, requires: ['battery_t3'], row: 6, col: 1, category: 'storage', effect: (s) => { s.hasTier4Bat = true; s.buildings.battery.capacity += 40000; } },
+    { id: 'personnel_4', name: 'Personnel Slot 4', desc: 'Unlocks the 4th Manager Slot.', cost: 50000000, requires: ['personnel_3'], row: 6, col: 2, category: 'digital', effect: (s) => { s.unlockedManagerSlots = 4; } }
 ];
 
 // Prestige Bonuses (Purchased with Prestige Points)

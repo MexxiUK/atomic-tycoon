@@ -672,7 +672,7 @@ function addReactor() {
 
 function getUpgradeCost(gen) {
     if (gen >= 5) return 0;
-    return 100000 * Math.pow(10, gen - 2);
+    return 500000 * Math.pow(10, gen - 2);
 }
 
 function upgradeReactor(id) {
