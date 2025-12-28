@@ -1266,6 +1266,8 @@ function renderUI() {
     // Battery UI
     const batFill = document.getElementById('battery-fill');
     const batText = document.getElementById('battery-text');
+    const batMW = document.getElementById('battery-mw');
+
     if (batFill && batText) {
         if (s.batCap > 0) {
             // Clamp storedPower to capacity (fixes >100% bug when capacity changes)
@@ -1274,8 +1276,10 @@ function renderUI() {
             batFill.style.width = pct + '%';
             batFill.className = "h-full w-0 transition-all duration-300 " + (pct < 20 ? "bg-red-500" : (pct < 50 ? "bg-yellow-500" : "bg-emerald-500"));
             batText.innerText = Math.floor(pct) + '%';
+            if (batMW) batMW.innerText = formatNum(state.storedPower) + ' MW';
         } else {
             batFill.style.width = '0%'; batText.innerText = '0%';
+            if (batMW) batMW.innerText = '0 MW';
         }
     }
 
