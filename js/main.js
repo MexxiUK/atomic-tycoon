@@ -1278,6 +1278,21 @@ function updateLogic(dt) {
     const rawSurplus = powerAvail - demand;
     let actualExportMW = 0;
 
+    // DEBUG: Log battery state every 60 frames (~2 seconds)
+    if (!window._batDebugCounter) window._batDebugCounter = 0;
+    window._batDebugCounter++;
+    if (window._batDebugCounter % 60 === 0) {
+        console.log('[Battery Debug]', {
+            rawSurplus: rawSurplus.toFixed(1),
+            batCount,
+            batCap,
+            effectiveCapacity,
+            storedPower: state.storedPower.toFixed(1),
+            hasUnlockBattery: state.hasUnlockBattery,
+            batteryChargeRate: state.batteryChargeRate
+        });
+    }
+
     if (rawSurplus > 0) {
         let rate = state.batteryChargeRate !== undefined ? state.batteryChargeRate : 1.0;
         if (!state.hasUnlockBattery) rate = 0.0; // Force 100% Export if battery not unlocked
