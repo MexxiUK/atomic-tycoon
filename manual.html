@@ -125,9 +125,10 @@
             <button class="nav-btn active" onclick="showSection('overview')">00. Overview</button>
             <div class="h-px bg-gray-800 my-2"></div>
             <button class="nav-btn" onclick="showSection('reactors')">01. Reactor Ops</button>
-            <button class="nav-btn" onclick="showSection('market')">02. The Network</button>
-            <button class="nav-btn" onclick="showSection('personnel')">03. Staffing</button>
-            <button class="nav-btn" onclick="showSection('contracts')">04. Contracts</button>
+            <button class="nav-btn" onclick="showSection('buildings')">02. Buildings</button>
+            <button class="nav-btn" onclick="showSection('market')">03. The Network</button>
+            <button class="nav-btn" onclick="showSection('personnel')">04. Staffing</button>
+            <button class="nav-btn" onclick="showSection('contracts')">05. Contracts</button>
             <div class="mt-auto pt-8">
                 <div class="bg-gray-800/50 p-3 rounded border border-gray-700">
                     <p class="text-[9px] text-gray-500 mb-1">CURRENT STATUS</p>
@@ -190,7 +191,7 @@
 
             <!-- MARKET SECTION -->
             <div id="market" class="section-content">
-                <h2 class="text-3xl text-yellow-500 mb-6 border-b border-gray-700 pb-2">02. The Network</h2>
+                <h2 class="text-3xl text-yellow-500 mb-6 border-b border-gray-700 pb-2">03. The Network</h2>
                 <div class="space-y-6">
                     <p class="text-sm text-gray-300">The energy market is volatile. Prices ($/MW) update in real-time
                         based on supply, demand, and external events.</p>
@@ -222,7 +223,7 @@
 
             <!-- PERSONNEL SECTION -->
             <div id="personnel" class="section-content">
-                <h2 class="text-3xl text-purple-400 mb-6 border-b border-gray-700 pb-2">03. Staffing & HR</h2>
+                <h2 class="text-3xl text-purple-400 mb-6 border-b border-gray-700 pb-2">04. Staffing & HR</h2>
                 <p class="text-sm text-gray-300 mb-6">Automation has limits. Hired specialists provide passive buffs to
                     your entire facility.</p>
 
@@ -256,9 +257,69 @@
                 </div>
             </div>
 
+            <!-- BUILDINGS SECTION -->
+            <div id="buildings" class="section-content">
+                <h2 class="text-3xl text-orange-400 mb-6 border-b border-gray-700 pb-2">02. City Infrastructure</h2>
+                <p class="text-sm text-gray-300 mb-6">Expand your grid by constructing buildings. Each building consumes
+                    power and generates passive revenue.</p>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-gray-400 border border-gray-700">
+                        <thead class="bg-gray-800 text-gray-200">
+                            <tr>
+                                <th class="p-3 border-r border-gray-700">Building</th>
+                                <th class="p-3 border-r border-gray-700">Base Cost</th>
+                                <th class="p-3 border-r border-gray-700">Power Demand</th>
+                                <th class="p-3">Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700">
+                            <tr>
+                                <td class="p-3 text-emerald-400 font-bold border-r border-gray-700">🏠 HOUSE</td>
+                                <td class="p-3 border-r border-gray-700">$100</td>
+                                <td class="p-3 border-r border-gray-700">1 MW</td>
+                                <td class="p-3">$2/s</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 text-blue-400 font-bold border-r border-gray-700">🏭 FACTORY</td>
+                                <td class="p-3 border-r border-gray-700">$15,000</td>
+                                <td class="p-3 border-r border-gray-700">25 MW</td>
+                                <td class="p-3">$150/s</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 text-purple-400 font-bold border-r border-gray-700">💻 DATACENTER</td>
+                                <td class="p-3 border-r border-gray-700">$2,000,000</td>
+                                <td class="p-3 border-r border-gray-700">200 MW*</td>
+                                <td class="p-3">$2,500/s</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 text-yellow-400 font-bold border-r border-gray-700">🏢 SKYSCRAPER</td>
+                                <td class="p-3 border-r border-gray-700">$50,000,000</td>
+                                <td class="p-3 border-r border-gray-700">1,000 MW</td>
+                                <td class="p-3">$25,000/s</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 text-cyan-400 font-bold border-r border-gray-700">🔋 BATTERY</td>
+                                <td class="p-3 border-r border-gray-700">$50,000</td>
+                                <td class="p-3 border-r border-gray-700">0 MW</td>
+                                <td class="p-3">Storage Only</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-6 p-4 bg-gray-800/30 rounded border border-gray-700">
+                    <p class="text-xs text-gray-500">* Datacenter power varies with research: <span
+                            class="text-purple-400">200 MW</span> base,
+                        <span class="text-red-400">600 MW</span> with AI, <span class="text-emerald-400">400 MW</span>
+                        with LLM optimization.
+                    </p>
+                </div>
+            </div>
+
             <!-- CONTRACTS SECTION -->
             <div id="contracts" class="section-content">
-                <h2 class="text-3xl text-emerald-500 mb-6 border-b border-gray-700 pb-2">04. Corporate Contracts</h2>
+                <h2 class="text-3xl text-emerald-500 mb-6 border-b border-gray-700 pb-2">05. Corporate Contracts</h2>
                 <p class="text-sm text-gray-300 mb-6">Prove your mastery of the grid to earn Reputation and large cash
                     bonuses.</p>
 
