@@ -388,6 +388,14 @@ function loadGame() {
                 state.permanentBonuses = { ...INITIAL_STATE.permanentBonuses, ...state.permanentBonuses };
             }
 
+            // v1.9.3 Fix: Ensure managers have names
+            if (state.managers) {
+                state.managers.forEach(m => {
+                    if (!m.name) m.name = "Operative " + Math.floor(Math.random() * 999);
+                    if (!m.lastRoleChange) m.lastRoleChange = 0;
+                });
+            }
+
             checkOfflineProgress();
         } catch (e) { console.error("Save Corrupt", e); }
     }
@@ -777,10 +785,23 @@ function buyBuilding(type) {
 function hireManager() {
     const cost = getManagerCost(state.managers.length);
     if (state.managers.length >= 4 || state.cash < cost) return;
+
+    // Silly Nuclear Names
+    const titles = ["Doctor", "Professor", "Agent", "Technician", "Inspector", "Captain", "Chief", "Intern", "Specialist", "Director"];
+    const firsts = ["Atom", "Nuclide", "Fission", "Neutron", "Cobalt", "Radon", "Uranium", "Plutonium", "Gamma", "X-Ray", "Isotope", "Curie", "Becquerel", "Sievert", "Tesla", "Fermi", "Bohr", "Planck", "Einstein", "Oppenheimer", "Geiger", "Heavy", "Critical", "Unstable", "Radioactive", "Glowing", "Chernobyl", "Fukushima", "Three Mile", "Windscale"];
+    const lasts = ["McGlow", "Boom", "Spark", "Zap", "Fusion", "Core", "Meltdown", "Rod", "Waste", "Leak", "Half-Life", "Fallout", "Reactot", "Turbine", "Grid", "Power", "Energy", "Volt", "Amp", "Ohm", "Watt", "Joule", "Hertz", "Dose", "Flux", "Mass", "Force", "Field", "Spin", "Charge"];
+
+    // 50% chance of Title + Last, 50% First + Last
+    let name = "";
+    if (Math.random() > 0.5) {
+        name = titles[Math.floor(Math.random() * titles.length)] + " " + lasts[Math.floor(Math.random() * lasts.length)];
+    } else {
+        name = firsts[Math.floor(Math.random() * firsts.length)] + " " + lasts[Math.floor(Math.random() * lasts.length)];
+    }
+
     state.cash -= cost;
-    state.managers.push({ id: Date.now(), type: 'engineer' });
-    scheduleSave();
-    renderManagers(); refreshStaticUI();
+    state.managers.push({ id: Date.now(), type: 'engineer', name: name, lastRoleChange: 0 });
+    renderManagers(); refreshStaticUI(); scheduleSave();
 }
 
 function buyArchitecture() { if (state.maxGenUnlocked < 5) { state.maxGenUnlocked++; scheduleSave(); renderReactors(); refreshStaticUI(); } }
@@ -842,11 +863,11 @@ function renderManagers() {
                         <select class="w-full bg-gray-950 border ${isOnCooldown ? 'border-gray-700 opacity-50 cursor-not-allowed' : 'border-gray-600'} text-[10px] rounded px-1 py-1 text-gray-300 focus:outline-none focus:border-emerald-500 uppercase"
                             ${isOnCooldown ? 'disabled' : ''}
                             onchange="const val = this.value; state.managers[${i}].type = val; state.managers[${i}].lastRoleChange = Date.now(); renderManagers(); refreshStaticUI(); scheduleSave();">
-                            ${MANAGER_TYPES.map(t => `<option value="${t.id}" ${m.type === t.id ? 'selected' : ''}>${t.name}</option>`).join('')}
+                            ${Object.keys(MANAGER_TYPES).map(k => `<option value="${k}" ${m.type === k ? 'selected' : ''}>${MANAGER_TYPES[k].name}</option>`).join('')}
                         </select>
                         ${isOnCooldown ? `<div class="text-[9px] text-red-400 font-bold text-center">COOLDOWN: ${(cooldown / 1000).toFixed(0)}s</div>` : ''}
                         <div class="text-[9px] text-gray-500 leading-tight h-8 overflow-hidden">
-                            ${MANAGER_TYPES.find(t => t.id === m.type).desc}
+                            ${MANAGER_TYPES[m.type].desc}
                         </div>
                     </div>
                     
