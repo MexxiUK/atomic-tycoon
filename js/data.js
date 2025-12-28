@@ -6,6 +6,7 @@ const INITIAL_STATE = {
         house: { count: 0, baseCost: 100, demand: 1, revenue: 2 },
         factory: { count: 0, baseCost: 15000, demand: 25, revenue: 150 },
         datacenter: { count: 0, baseCost: 2000000, demand: 200, revenue: 2500 },
+        cryoplant: { count: 0, baseCost: 100000000, demand: 50, revenue: 0 },
         skyscraper: { count: 0, baseCost: 50000000, demand: 1000, revenue: 25000 },
         battery: { count: 0, baseCost: 50000, demand: 0, capacity: 100, stored: 0 }
     },
@@ -73,6 +74,7 @@ const RESEARCH_TREE = [
 
     // Tier 4 - Mastery
     { id: 'gen4_reactor', name: 'GEN IV Core Design', desc: 'Unlocks Generation 4 reactor construction.', cost: 500000, requires: ['gen3_reactor'], row: 4, col: 0, category: 'core', effect: (s) => { if (s.maxGenUnlocked < 4) s.maxGenUnlocked = 4; } },
+    { id: 'cryo_tech', name: 'Cryogenic Engineering', desc: 'Unlocks Cryo-Plant construction. Reduces global reactor heat.', cost: 5000000, requires: ['gen4_reactor'], row: 4, col: 0, category: 'core', effect: (s) => { } },
     { id: 'battery_t3', name: 'Graphene Supercaps', desc: '+8000 MWs battery capacity per unit.', cost: 1000000, requires: ['battery_t2'], row: 4, col: 1, category: 'storage', effect: (s) => { s.hasTier3Bat = true; s.buildings.battery.capacity += 8000; } },
     { id: 'maintenance', name: 'Elite Maintenance', desc: '+50% reactor output.', cost: 500000, requires: ['llm_opt', 'gen3_reactor'], row: 4, col: 2, category: 'digital', effect: (s) => { s.hasMaintenance = true; } },
 

@@ -354,6 +354,9 @@ function loadGame() {
                 // That is acceptable per plan (breaking change for balance).
                 recalcBatteryCapacity();
             }
+
+            // Initialize Cryo-Plant (v1.6.0)
+            if (!state.buildings.cryoplant) state.buildings.cryoplant = { ...INITIAL_STATE.buildings.cryoplant };
             // Logic to auto-unlock if you already have batteries (Legacy Save Support)
             if (state.buildings.battery.count > 0) state.hasUnlockBattery = true;
 
@@ -421,7 +424,7 @@ function checkOfflineProgress() {
 
         const revPerSec = ((cityBase * eff) + reactorUnitRev) * rM + exportInc;
 
-        const earned = revPerSec * (diff / 1000) * 0.50; // 50% penalty
+        const earned = revPerSec * (diff / 1000) * 0.05; // 95% penalty (5% efficiency)
 
         if (earned > 0) {
             state.cash += earned;
@@ -508,7 +511,7 @@ function refreshStaticUI() {
     const pC = state.managers.filter(m => m.type === 'procurement').length;
     const discount = 1 - (pC * 0.10);
 
-    ['house', 'factory', 'datacenter', 'skyscraper', 'battery'].forEach(t => {
+    ['house', 'factory', 'datacenter', 'skyscraper', 'battery', 'cryoplant'].forEach(t => {
         const b = state.buildings[t];
         const countEl = document.getElementById('count-' + t);
         const costEl = document.getElementById('cost-' + t);
@@ -1084,8 +1087,11 @@ function updateLogic(dt) {
             const rR = state.hasFirefighters ? 15 : 12;
             r.heat -= dt * rR; if (r.heat <= 0) { r.heat = 0; r.isScrammed = false; }
         } else {
+            const cryoCount = state.buildings.cryoplant ? state.buildings.cryoplant.count : 0;
+            const cryoMult = Math.pow(0.95, cryoCount); // 5% reduction per unit (compound)
+
             if (r.isOverdrive) {
-                r.heat += dt * 16 * (1 + (r.heat / 40)) * hM * stab;
+                r.heat += dt * 16 * (1 + (r.heat / 40)) * hM * stab * cryoMult;
                 if (r.heat >= 100) { r.heat = 100; r.isScrammed = true; r.isOverdrive = false; if (state.masterOverdriveActive) cascade = true; }
             } else {
                 const heatDissip = state.permanentBonuses ? state.permanentBonuses.heatDissipation : 1.0;
@@ -1394,13 +1400,27 @@ function renderUI() {
 
     // Battery Unlock Reveal
     const btnBat = document.getElementById('btn-battery');
+    const lockBat = document.getElementById('locked-battery');
     const monBat = document.getElementById('grid-storage-monitor');
     if (state.hasUnlockBattery) {
         if (btnBat) btnBat.classList.remove('hidden');
+        if (lockBat) lockBat.classList.add('hidden');
         if (monBat) monBat.classList.remove('hidden');
     } else {
         if (btnBat) btnBat.classList.add('hidden');
+        if (lockBat) lockBat.classList.remove('hidden');
         if (monBat) monBat.classList.add('hidden');
+    }
+
+    // Cryo-Plant Reveal
+    const btnCryo = document.getElementById('btn-cryoplant');
+    const lockCryo = document.getElementById('locked-cryoplant');
+    if (state.researchUnlocked.includes('cryo_tech')) {
+        if (btnCryo) btnCryo.classList.remove('hidden');
+        if (lockCryo) lockCryo.classList.add('hidden');
+    } else {
+        if (btnCryo) btnCryo.classList.add('hidden');
+        if (lockCryo) lockCryo.classList.remove('hidden');
     }
 
     // Prestige Button Visibility
