@@ -1,3 +1,4 @@
+// INITIAL_STATE Definition
 const INITIAL_STATE = {
     cash: 150,
     lastSaveTime: Date.now(),
@@ -200,6 +201,22 @@ const UPGRADES = [
         getCost: () => 100000000,
         isInstalled: (s) => s.hasTier4Bat,
         canBuy: (s) => s.hasTier3Bat
+    },
+    {
+        id: 'personnel_3',
+        name: 'Personnel Slot 3',
+        getLabel: () => 'Unlocks the 3rd Manager Slot.',
+        getCost: () => 500000,
+        isInstalled: (s) => s.unlockedManagerSlots >= 3,
+        canBuy: () => true
+    },
+    {
+        id: 'personnel_4',
+        name: 'Personnel Slot 4',
+        getLabel: () => 'Unlocks the 4th Manager Slot.',
+        getCost: () => 5000000,
+        isInstalled: (s) => s.unlockedManagerSlots >= 4,
+        canBuy: () => true
     },
     {
         id: 'llm',
