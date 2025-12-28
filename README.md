@@ -12,7 +12,7 @@ You're the operator of a nuclear power facility. Your goal is to generate electr
 
 ### Features
 
-- **Reactor Management** - Build and upgrade reactors from GEN I to GEN V Fusion
+- **Reactor Management** - Build and upgrade reactors from GEN II to GEN V Fusion
 - **Heat Mechanics** - Balance power output vs thermal limits; trigger SCRAM if things get too hot
 - **Research Tree** - Unlock 15+ technologies across thermal, grid, and AI branches
 - **Battery Storage** - Store excess power for demand peaks
