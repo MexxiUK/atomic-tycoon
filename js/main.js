@@ -457,6 +457,14 @@ function importSave() {
 
 function hardReset() {
     if (confirm("Are you sure? This will wipe all progress.")) {
+        // Stop any pending save
+        if (saveTimeout) {
+            clearTimeout(saveTimeout);
+            saveTimeout = null;
+        }
+        // Disable save function temporarily
+        window.saveGame = function () { };
+
         window.onbeforeunload = null;
         localStorage.removeItem('atomic-tycoon-save');
         location.reload();
@@ -789,10 +797,31 @@ function renderManagers() {
     const container = document.getElementById('manager-slots');
     if (!container) return;
     container.innerHTML = '';
+
+    // Ensure unlockedManagerSlots exists for legacy saves
+    if (typeof state.unlockedManagerSlots === 'undefined') state.unlockedManagerSlots = 2;
+
     for (let i = 0; i < 4; i++) {
-        const m = state.managers[i];
         const slot = document.createElement('div');
         slot.className = "border border-gray-700 bg-gray-900/80 rounded p-2 flex flex-col justify-between h-20 transition-all";
+
+        // Locked Slot Logic
+        if (i >= state.unlockedManagerSlots) {
+            const unlockCost = i === 2 ? 500000 : 5000000;
+            slot.classList.add('opacity-75');
+            slot.innerHTML = `
+                <div class="h-full flex flex-col items-center justify-center text-center">
+                    <span class="text-[8px] font-bold text-gray-500 uppercase tracking-widest mb-1">SLOT LOCKED</span>
+                    <button onclick="unlockManagerSlot(${i})" class="bg-gray-800 border border-gray-600 hover:border-emerald-500 hover:text-emerald-400 text-gray-400 px-2 py-1 rounded text-[7px] font-bold uppercase transition-all">
+                        Unlock $${formatNum(unlockCost)}
+                    </button>
+                </div>
+            `;
+            container.appendChild(slot);
+            continue;
+        }
+
+        const m = state.managers[i];
         if (m) {
             const ct = MANAGER_TYPES[m.type];
             slot.innerHTML = `
@@ -806,12 +835,22 @@ function renderManagers() {
         } else {
             const cost = getManagerCost(state.managers.length);
             slot.innerHTML = `<button onclick="hireManager()" id="hire-btn-${i}" class="w-full h-full flex flex-col items-center justify-center group transition-all"><span class="text-[9px] font-bold text-emerald-500 group-hover:text-emerald-400 uppercase">+ Hire</span><span class="text-[7px] text-gray-500 font-bold">$${formatNum(cost)}</span></button>`;
-            if (state.managers.length >= 4) slot.innerHTML = `<div class="w-full h-full flex items-center justify-center"><span class="text-[8px] text-gray-800 font-bold uppercase tracking-widest">Reserved</span></div>`;
         }
         container.appendChild(slot);
     }
     const managerCountEl = document.getElementById('manager-count');
     if (managerCountEl) managerCountEl.innerText = state.managers.length;
+}
+
+function unlockManagerSlot(index) {
+    const cost = index === 2 ? 500000 : 5000000;
+    if (state.cash >= cost) {
+        state.cash -= cost;
+        state.unlockedManagerSlots++;
+        scheduleSave();
+        renderManagers();
+        refreshStaticUI(); // Update cash display
+    }
 }
 
 function formatNum(num) {
@@ -1128,6 +1167,7 @@ function updateLogic(dt) {
 
     if (rawSurplus > 0) {
         let rate = state.batteryChargeRate !== undefined ? state.batteryChargeRate : 1.0;
+        if (!state.hasUnlockBattery) rate = 0.0; // Force 100% Export if battery not unlocked
         if (typeof rate !== 'number' || isNaN(rate)) rate = 1.0; else if (rate < 0) rate = 0; else if (rate > 1) rate = 1;
         const potentialCharge = rawSurplus * rate;
         const potentialExport = rawSurplus * (1 - rate);

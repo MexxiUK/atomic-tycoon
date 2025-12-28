@@ -2,6 +2,7 @@ const INITIAL_STATE = {
     cash: 150,
     lastSaveTime: Date.now(),
     managers: [],
+    unlockedManagerSlots: 2, // New default: 2 slots open
     buildings: {
         house: { count: 0, baseCost: 100, demand: 1, revenue: 2 },
         factory: { count: 0, baseCost: 15000, demand: 25, revenue: 150 },
