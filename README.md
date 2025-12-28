@@ -1,10 +1,10 @@
-# ⚛️ Reactor
+# ⚛️ Reactor Command
 
 A nuclear power plant management idle game. Build reactors, manage heat, expand your grid, and grow your energy empire.
 
 ## 🎮 Play Now
 
-[**Play Reactor**](https://reactor.davidtate.uk)
+[**Play Reactor Command**](https://reactor.davidtate.uk)
 
 ## 📖 About
 
