@@ -396,6 +396,23 @@ function loadGame() {
                 });
             }
 
+            // Integrity Check: Sync Research Flags (Fixes stuck battery/perks)
+            if (state.researchUnlocked.includes('grid_tech')) state.hasUnlockBattery = true;
+            if (state.researchUnlocked.includes('thermal_eng')) state.hasFirefighters = true;
+            if (state.researchUnlocked.includes('ai_systems')) state.hasSmartGrid = true;
+            if (state.researchUnlocked.includes('neural_net')) state.hasAI = true;
+            if (state.researchUnlocked.includes('llm_opt')) state.hasLLM = true;
+            if (state.researchUnlocked.includes('maintenance')) state.hasMaintenance = true;
+            if (state.researchUnlocked.includes('overdrive_tech')) state.hasSync = true;
+
+            // Battery Tiers Sync
+            if (state.researchUnlocked.includes('battery_t1')) state.hasTier1Bat = true;
+            if (state.researchUnlocked.includes('battery_t2')) state.hasTier2Bat = true;
+            if (state.researchUnlocked.includes('battery_t3')) state.hasTier3Bat = true;
+            if (state.researchUnlocked.includes('quantum_bat')) state.hasTier4Bat = true;
+
+            // Recalculate derived attributes
+            recalcBatteryCapacity();
             checkOfflineProgress();
         } catch (e) { console.error("Save Corrupt", e); }
     }
